@@ -31,7 +31,7 @@ function Login() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const { email, password } = user;
 
     if (!email.includes("@") && !email.includes(".com")) {
@@ -57,23 +57,21 @@ function Login() {
 
     dispatch(LoginUser(user));
   };
-  console.log(user)
-   const [userj,setUserj]=useState();
+  console.log(user);
+  const [userj, setUserj] = useState();
   const LogiInWithGoogle = () => {
-   
     signInWithPopup(auth, provider).then((result) => {
       // navigate("/home");
       console.log(result);
 
-       const userobj={
-          username:result.user.displayName,
-          email:result.user.email,
-          gauth:true
-        }
-        setUserj(userobj)
-        dispatch(LoginUser(userobj))
+      const userobj = {
+        username: result.user.displayName,
+        email: result.user.email,
+        gauth: true,
+      };
+      setUserj(userobj);
+      dispatch(LoginUser(userobj));
     });
-    
   };
 
   useEffect(() => {
@@ -84,7 +82,6 @@ function Login() {
         duration: 3000,
         isClosable: true,
       });
-    
     } else if (status == "409") {
       toast({
         title: "Email Does Not Exist!",
@@ -102,7 +99,6 @@ function Login() {
     }
     dispatch({ type: RESET_USER, payload: "" });
   }, [status]);
-
 
   return (
     <section className="h-[100%] flex flex-col  md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">

@@ -1,12 +1,20 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Navbar from './Component/Navbar';
 
+import Allroutes from './Routes/Allroutes';
+
+
 function App() {
+  // const token = useSelector((state) => state.user.token);
+  // console.log(token);
   return (
     <div className="App">
-    <h1 className='bg-black text-white'>GreenMentor</h1>
-      <Navbar/>
+    <Navbar/>
+   <Allroutes/>
+
+
+  
     </div>
   );
 }

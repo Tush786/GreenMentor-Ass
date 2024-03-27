@@ -216,13 +216,19 @@ export const RemoveTask = (_id) => async (dispatch) => {
 };
 
 export const editTask = (taskId, updatedTaskData) => async (dispatch) => {
+  const token = localStorage.getItem("Token");
+  const config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
   try {
     // Send PATCH request to update the task
     const response = await axios.patch(
       `http://localhost:9911/task/updatetask/${taskId}`,
-      updatedTaskData
+      updatedTaskData,config
     );
-
+   console.log(response.data)
     dispatch({
       type: EDIT_TASK,
       payload: response.data,
