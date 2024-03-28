@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   ADD_TASK,
+  CHANGE_STATUS,
   EDIT_TASK,
   EDIT_USER,
   GET_TASK,
@@ -14,7 +15,7 @@ import {
 export const getUser = (id) => async (dispatch) => {
   try {
     const user = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/user/${id}`
+      `https://taskbackend-u0a1.onrender.com/user/${id}`
     );
     dispatch({
       type: GET_USER,
@@ -27,7 +28,7 @@ export const getUser = (id) => async (dispatch) => {
 
 export const addUser = (user) => async (dispatch) => {
   try {
-    const res = await axios.post(`http://localhost:9911/user/addUser`, {
+    const res = await axios.post(`https://taskbackend-u0a1.onrender.com/user/addUser`, {
       ...user,
     });
     console.log(res.status);
@@ -48,7 +49,7 @@ export const addUser = (user) => async (dispatch) => {
 export const LoginUser = (user) => async (dispatch) => {
   console.log(user);
   try {
-    const res = await axios.post(`http://localhost:9911/user/login`, {
+    const res = await axios.post(`https://taskbackend-u0a1.onrender.com/user/login`, {
       ...user,
     });
     console.log(res.data);
@@ -99,7 +100,7 @@ export const LoginUser = (user) => async (dispatch) => {
 export const setUser = (_id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/user/${_id}`
+      `https://taskbackend-u0a1.onrender.com/user/${_id}`
     );
     console.log(res);
     dispatch({
@@ -117,7 +118,7 @@ export const setUser = (_id) => async (dispatch) => {
 export const editUser = (user) => async (dispatch) => {
   try {
     await axios.patch(
-      `${process.env.REACT_APP_SERVER_URL}/user/editUser/${user._id}`,
+      `https://taskbackend-u0a1.onrender.com/user/editUser/${user._id}`,
       {
         ...user,
       }
@@ -154,7 +155,7 @@ export const Addtask = (task) => async (dispatch) => {
 
     // Send POST request to create a new task
     const resp = await axios.post(
-      `http://localhost:9911/task/createTask/`,
+      `https://taskbackend-u0a1.onrender.com/task/createTask/`,
       task,
       config
     );
@@ -172,7 +173,7 @@ export const Addtask = (task) => async (dispatch) => {
   }
 };
 
-export const getTaskData = () => async (dispatch) => {
+export const getTaskData = (page,limit) => async (dispatch) => {
   const token = localStorage.getItem("Token");
   const config = {
     headers: {
@@ -181,7 +182,7 @@ export const getTaskData = () => async (dispatch) => {
   };
   try {
     const gettask = await axios.get(
-      `http://localhost:9911/task/getTask`,
+      `https://taskbackend-u0a1.onrender.com/task/getTask?page=${page}&limit=${limit}`,
       config
     );
     console.log(gettask.data.tasks);
@@ -203,7 +204,7 @@ export const RemoveTask = (_id) => async (dispatch) => {
   };
   try {
     const resp = await axios.delete(
-      `http://localhost:9911/task/deleteTask/${_id}`,
+      `https://taskbackend-u0a1.onrender.com/task/deleteTask/${_id}`,
       config
     );
     dispatch({
@@ -216,6 +217,7 @@ export const RemoveTask = (_id) => async (dispatch) => {
 };
 
 export const editTask = (taskId, updatedTaskData) => async (dispatch) => {
+  console.log(updatedTaskData)
   const token = localStorage.getItem("Token");
   const config = {
     headers: {
@@ -225,7 +227,7 @@ export const editTask = (taskId, updatedTaskData) => async (dispatch) => {
   try {
     // Send PATCH request to update the task
     const response = await axios.patch(
-      `http://localhost:9911/task/updatetask/${taskId}`,
+      `https://taskbackend-u0a1.onrender.com/task/updatetask/${taskId}`,
       updatedTaskData,config
     );
    console.log(response.data)
@@ -238,3 +240,5 @@ export const editTask = (taskId, updatedTaskData) => async (dispatch) => {
     // Handle error if necessary
   }
 };
+
+

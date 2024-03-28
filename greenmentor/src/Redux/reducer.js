@@ -1,5 +1,7 @@
 import {
+  CHANGE_STATUS,
   EDITING,
+  EDITINGSTATUS,
   EDIT_TASK,
   EDIT_USER,
   GET_TASK,
@@ -21,7 +23,7 @@ const initialState = {
   Taskdata: [],
   isLoading: false,
   editformid:"",
-  editing:false
+  editing:false,
 };
 
 export const Reducer = (state = initialState, { type, payload }) => {
@@ -54,6 +56,7 @@ export const Reducer = (state = initialState, { type, payload }) => {
       return { ...state, editing:false,editformid:"" };
       case EDITING:
        return {...state,editing:true, editformid:payload.id}
+     
     default:
       return state;
   }

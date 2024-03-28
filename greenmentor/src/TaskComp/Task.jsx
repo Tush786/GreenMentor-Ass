@@ -66,8 +66,6 @@ function Task() {
       return;
     }
 
-  
-
     console.log(taskform);
     if (Editing) {
       dispatch(editTask(Editid, taskform)).then(() => {
@@ -109,8 +107,6 @@ function Task() {
       setTaskform(formdata[0]);
     }
   }, [Editing, Editid]);
-
-
 
   return (
     <div className="w-[500px] border-dashed">

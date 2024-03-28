@@ -32,7 +32,9 @@ function Taskitem() {
         })}
       </div>
 
-      <div>
+{
+  TaskData.length<4?null:(
+    <div>
         <Button disabled={page === 1} onClick={handlePrev}>
           Prev
         </Button>
@@ -41,6 +43,9 @@ function Taskitem() {
           Next
         </Button>
       </div>
+  )
+}
+     
     </>
   );
 }
