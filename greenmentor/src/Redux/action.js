@@ -10,6 +10,7 @@ import {
   POST_USER,
   REMOVE_TASK,
   RESET_USER,
+  STATUS_HANDLE,
 } from "./actiontype";
 
 export const getUser = (id) => async (dispatch) => {
@@ -175,6 +176,9 @@ export const Addtask = (task) => async (dispatch) => {
 
 export const getTaskData = (page,limit) => async (dispatch) => {
   const token = localStorage.getItem("Token");
+  if(!token){
+    return  
+  }
   const config = {
     headers: {
       Authorization: "Bearer " + token,
@@ -241,4 +245,28 @@ export const editTask = (taskId, updatedTaskData) => async (dispatch) => {
   }
 };
 
+export const statuschange = (taskId, updatedTaskData) => async (dispatch) => {
+  console.log(updatedTaskData)
+  const token = localStorage.getItem("Token");
+  const config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
+  try {
+    // Send PATCH request to update the task
+    const response = await axios.patch(
+      `https://taskbackend-u0a1.onrender.com/task/updatetask/${taskId}`,
+      updatedTaskData,config
+    );
+   console.log(response.data)
+    dispatch({
+      type: STATUS_HANDLE,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.error("Error editing task:", error);
+    // Handle error if necessary
+  }
+};
 

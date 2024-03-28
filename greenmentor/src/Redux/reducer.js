@@ -13,6 +13,7 @@ import {
   POST_USER,
   REMOVE_TASK,
   RESET_USER,
+  STATUS_HANDLE,
 } from "./actiontype";
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
   isLoading: false,
   editformid:"",
   editing:false,
+
 };
 
 export const Reducer = (state = initialState, { type, payload }) => {
@@ -56,6 +58,8 @@ export const Reducer = (state = initialState, { type, payload }) => {
       return { ...state, editing:false,editformid:"" };
       case EDITING:
        return {...state,editing:true, editformid:payload.id}
+      case STATUS_HANDLE:
+       return {...state}
      
     default:
       return state;

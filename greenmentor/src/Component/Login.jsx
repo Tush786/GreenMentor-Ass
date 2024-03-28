@@ -56,6 +56,15 @@ function Login() {
     }
 
     dispatch(LoginUser(user));
+
+    setUser({
+      email: "",
+      password: "",
+      gauth: false,
+    })
+
+    Navigate('/')
+  
   };
   console.log(user);
   const [userj, setUserj] = useState();

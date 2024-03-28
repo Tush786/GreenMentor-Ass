@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Card,
   CardBody,
   CardHeader,
@@ -11,23 +12,25 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { MdEditSquare, MdDelete } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { RemoveTask, getTaskData } from "../redux/action"; // Update the import to use removeTask action
+import { useDispatch, useSelector } from "react-redux";
+import { RemoveTask, getTaskData, statuschange } from "../redux/action"; // Update the import to use removeTask action
 import { useHistory, useNavigate } from "react-router-dom"; // Import useHistory from react-router-dom
 import axios from "axios";
 import { EDITING, EDITINGSTATUS } from "../redux/actiontype";
 
-function TaskCard({ title, description, taskdate, _id,status,createdDate }) {
+function TaskCard({ title, description, taskdate, _id, status, createdDate }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   console.log(_id);
-  const toast=useToast()
+  const toast = useToast();
+  const taskdata = useSelector((state) => state.user.Taskdata);
 
   async function deleteTask(_id) {
-    dispatch(RemoveTask(_id)); // Wait for the RemoveTask action to complete
-    dispatch(getTaskData());
-     // Dispatch getTaskData after deleting the task
-     toast({
+    
+    dispatch(RemoveTask(_id)).then(() => {
+      dispatch(getTaskData());
+    });
+    toast({
       title: "Task Deleted",
       status: "success",
       duration: 3000,
@@ -37,27 +40,46 @@ function TaskCard({ title, description, taskdate, _id,status,createdDate }) {
 
   async function editTask(_id) {
     dispatch({
-      type:EDITING,
-      payload:{id:_id}
-    })
+      type: EDITING,
+      payload: { id: _id },
+    });
   }
 
+  function HandleStatus(_id) {
+    const formdata = taskdata.filter((el) => el._id === _id);
 
-  function HandleStatus(_id){
-  
+    if (formdata.length === 0) {
+        console.error("Task not found with ID:", _id);
+        return; // Exit function if task not found
+    }
+
+    const statusobj = {
+      ...formdata[0],
+      status: !formdata[0].status
+    };
+
+    dispatch(statuschange(_id, statusobj)).then(() => {
+      dispatch(getTaskData());
+    });
   }
 
   return (
     <div className="w-[400px]">
       <Card className="text-left ">
         <CardHeader className="flex justify-between items-center">
-          <Heading size="md">Client Report</Heading>
+          <Heading size="md">Task Report</Heading>
           <Box className="flex justify-center items-center">
-          <Text   onClick={() => {
+            {/* <Text
+              onClick={() => {
                 HandleStatus(_id);
-              }} className={`mx-2 p-2 ${status ? 'bg-red' : 'bg-blue'}`}>
-  {status ? "Completed" : "Not Completed"}
-</Text>
+              }}
+              className={`mx-2 p-2 ${status ? "bg-red" : "bg-blue"}`}
+            >
+              {status ? "Completed" : "Not Completed"}
+            </Text> */}
+            <Button className="mr-2"  onClick={() => {
+                HandleStatus(_id);
+              }}> {status ? "Completed" : "Not Completed"}</Button>
             <MdEditSquare
               onClick={() => {
                 editTask(_id);
@@ -83,7 +105,7 @@ function TaskCard({ title, description, taskdate, _id,status,createdDate }) {
             </Box>
             <Box>
               <Heading size="xs" textTransform="uppercase">
-                Task Scheduled Date
+                Task Deadline 
               </Heading>
               <Text pt="2" fontSize="sm">
                 {taskdate}

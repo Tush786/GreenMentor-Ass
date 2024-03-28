@@ -82,7 +82,11 @@ function Signup({onClose, onOpen }) {
   
       dispatch(addUser(user))
   
-  
+      setUser({
+        username: "",
+        email: "",
+        password: ""
+      })
     }
   
     useEffect(() => {
