@@ -9,13 +9,14 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { Addtask, editTask, getTaskData } from "../redux/action";
+import { Addtask, changeStatus, editTask, getTaskData } from "../redux/action";
 
 function Task() {
   const [taskform, setTaskform] = useState({
     title: "",
     taskdate: "",
     description: "",
+    status: false,
   });
 
   const toast = useToast();
@@ -64,37 +65,52 @@ function Task() {
       });
       return;
     }
+
+  
+
     console.log(taskform);
-    if(Editing){
-      dispatch(editTask(Editid,taskform)).then(() => {
+    if (Editing) {
+      dispatch(editTask(Editid, taskform)).then(() => {
         dispatch(getTaskData());
       });
-    }
-    else{
+    } else {
       dispatch(Addtask(taskform)).then(() => {
         dispatch(getTaskData());
       });
     }
-    
+
+    if (description && taskdate && title) {
+      toast({
+        title: "Task Added Sucessfully",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
 
     setTaskform({
       title: "",
       taskdate: "",
       description: "",
+      status: false,
     });
   }
 
+  const Editing = useSelector((state) => state.user.editing);
+  const Editid = useSelector((state) => state.user.editformid);
+  const taskdata = useSelector((state) => state.user.Taskdata);
+  const editingstatus = useSelector((state) => state.user.editingstatus);
+  console.log(editingstatus);
 
-  const Editing=useSelector(state=>state.user.editing)
-  const Editid=useSelector(state=>state.user.editformid)
-  const taskdata=useSelector(state=>state.user.Taskdata)
+  useEffect(() => {
+    if (Editing) {
+      const formdata = taskdata.filter((el) => el._id == Editid);
+      setTaskform(formdata[0]);
+    }
+  }, [Editing, Editid]);
 
-  useEffect(()=>{
-      if(Editing){
-        const formdata=taskdata.filter(el=>el._id==Editid)
-        setTaskform(formdata[0])
-      }
-  },[Editing,Editid])
+
 
   return (
     <div className="w-[500px] border-dashed">

@@ -7,6 +7,7 @@ import {
   Stack,
   StackDivider,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { MdEditSquare, MdDelete } from "react-icons/md";
@@ -14,52 +15,49 @@ import { useDispatch } from "react-redux";
 import { RemoveTask, getTaskData } from "../redux/action"; // Update the import to use removeTask action
 import { useHistory, useNavigate } from "react-router-dom"; // Import useHistory from react-router-dom
 import axios from "axios";
-import { EDITING } from "../redux/actiontype";
+import { EDITING, EDITINGSTATUS } from "../redux/actiontype";
 
-function TaskCard({ title, description, taskdate, _id }) {
+function TaskCard({ title, description, taskdate, _id,status,createdDate }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   console.log(_id);
+  const toast=useToast()
 
   async function deleteTask(_id) {
-    await dispatch(RemoveTask(_id)); // Wait for the RemoveTask action to complete
-    dispatch(getTaskData()); // Dispatch getTaskData after deleting the task
+    dispatch(RemoveTask(_id)); // Wait for the RemoveTask action to complete
+    dispatch(getTaskData());
+     // Dispatch getTaskData after deleting the task
+     toast({
+      title: "Task Deleted",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
   }
 
   async function editTask(_id) {
-    // const obj = {
-    //   title,
-    //   description,
-    //   taskdate,
-    // };
-    // const token = localStorage.getItem("Token");
-    // const config = {
-    //   headers: {
-    //     Authorization: "Bearer " + token,
-    //   },
-    // };
-    // try {
-    //   let resp = await axios.patch(
-    //     `http://localhost:9911/task/updatetask/${_id}`,
-    //     obj,
-    //     config
-    //   ); // Pass obj and config directly to axios.patch
-    //   console.log(resp.data); // Log response data for debugging
-    // } catch (error) {
-    //   console.log(error);
-    // }
     dispatch({
       type:EDITING,
       payload:{id:_id}
     })
   }
 
+
+  function HandleStatus(_id){
+  
+  }
+
   return (
     <div className="w-[400px]">
-      <Card className="text-left">
+      <Card className="text-left ">
         <CardHeader className="flex justify-between items-center">
           <Heading size="md">Client Report</Heading>
           <Box className="flex justify-center items-center">
+          <Text   onClick={() => {
+                HandleStatus(_id);
+              }} className={`mx-2 p-2 ${status ? 'bg-red' : 'bg-blue'}`}>
+  {status ? "Completed" : "Not Completed"}
+</Text>
             <MdEditSquare
               onClick={() => {
                 editTask(_id);
