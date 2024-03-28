@@ -8,6 +8,12 @@ A MERN application for basic tasks management.
 <h1>Task Page</h1>
 <a href="https://ibb.co/WFvVJ68"><img src="https://i.ibb.co/Dkfr2tc/Task-Page.png" alt="Task-Page" border="0"></a>
 
+<h1>User Profile</h1>
+<a href="https://ibb.co/mzVpCBn"><img src="https://i.ibb.co/ThxyBTQ/Profile.png" alt="Profile" border="0"></a><br /><a target='_blank' href='https://usefulwebtool.com/convert-text-to-binary'>binary to words converter</a><br />
+
+<h1>Toggle Status</h1>
+<a href="https://ibb.co/qpCM4YV"><img src="https://i.ibb.co/w47Nbhj/toggle-Status.png" alt="toggle-Status" border="0"></a><br /><a target='_blank' href='https://usefulwebtool.com/convert-text-to-binary'>binary to words converter</a><br />
+
 ## Table of Contents
 
 - [Features](#features)
