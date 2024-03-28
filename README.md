@@ -2,7 +2,11 @@
 # MERN Task Manager APP
 
 A MERN application for basic tasks management.
-![image](https://user-images.githubusercontent.com/86913048/227101123-f8a35258-9c21-4479-86e8-055659ab75e2.png)
+<h1>Landing Page</h1>
+<a href="https://ibb.co/KqWzDTZ"><img src="https://i.ibb.co/PhgzMqp/Signup-Page.png" alt="Signup-Page" border="0"></a>
+
+<h1>Task Page</h1>
+<a href="https://ibb.co/WFvVJ68"><img src="https://i.ibb.co/Dkfr2tc/Task-Page.png" alt="Task-Page" border="0"></a>
 
 ## Table of Contents
 
@@ -164,6 +168,9 @@ Inside backend folder:
 - This project
 
   - Github Repo: https://github.com/Tush786/GreenMentor-Ass
+ 
+   <h3> Back end github url</h3>
+  - https://github.com/Tush786/pabblybackend
 
 - Official Docs
 
