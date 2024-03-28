@@ -2,7 +2,8 @@
 # MERN Task Manager APP
 
 A MERN application for basic tasks management.
-![image](https://user-images.githubusercontent.com/86913048/227101123-f8a35258-9c21-4479-86e8-055659ab75e2.png)
+<a href="https://ibb.co/KqWzDTZ"><img src="https://i.ibb.co/PhgzMqp/Signup-Page.png" alt="Signup-Page" border="0"></a>
+<a href="https://ibb.co/WFvVJ68"><img src="https://i.ibb.co/Dkfr2tc/Task-Page.png" alt="Task-Page" border="0"></a>
 
 ## Table of Contents
 
